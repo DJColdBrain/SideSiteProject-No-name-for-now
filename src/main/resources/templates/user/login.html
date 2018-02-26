@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('login')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+<div class="container">
+    <form th:action="@{${action}}" method="post" th:object="${user}">
+        <input type="hidden" th:field="${user.id}"/>
+        <div class="row">
+            <div class="col s12">
+                <h2 th:text="${heading}">New Category</h2>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12 l8" th:classappend="${ #fields.hasErrors('username')}?'error' : ''">
+                <input type="text" th:field="*{username}" placeholder="Username"/>
+                <div class="error-massage" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 l8" th:classappend="${  #fields.hasErrors('password')}?'error' : ''">
+                <input type="text" th:field="*{password}" placeholder="Password"/>
+                <div class="error-massage" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 l8">
+                <button th:text="${submit}" type="submit" class="button">Add</button>
+                <a th:href="@{/login.html}" class="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

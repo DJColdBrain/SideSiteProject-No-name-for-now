@@ -18,7 +18,8 @@ public class Gif {
     @NotNull
     private Category category;
     private LocalDateTime dateUploaded = LocalDateTime.now();
-    private String username = "You";
+    @ManyToOne
+    private User user;
     private boolean favorite;
 
     private String hash;
@@ -85,12 +86,12 @@ public class Gif {
         this.dateUploaded = dateUploaded;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean isFavorite() {

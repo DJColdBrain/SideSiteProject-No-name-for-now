@@ -25,6 +25,7 @@ repositories {
 // Specify dependencies
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.hashids:hashids:1.0.1'
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'

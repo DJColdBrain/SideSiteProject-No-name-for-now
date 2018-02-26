@@ -3,6 +3,7 @@ package com.djcoldbrain.giflib.web.controller;
 import com.djcoldbrain.giflib.model.Gif;
 import com.djcoldbrain.giflib.service.CategoryService;
 import com.djcoldbrain.giflib.service.GifService;
+import com.djcoldbrain.giflib.service.UserService;
 import com.djcoldbrain.giflib.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class GifController {
 
     @Autowired
     private GifService gifService;
+
+    @Autowired
+    private UserService userService;
 
     // Home page - index of all GIFs
     @RequestMapping("/")
@@ -68,16 +73,17 @@ public class GifController {
 
     // Upload a new GIF
     @RequestMapping(value = "/gifs", method = RequestMethod.POST)
-    public String addGif(@Valid Gif gif, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes) {
+        public String addGif(@Valid Gif gif, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes, Principal principal ) {
         //  Upload new GIF if data is valid
 
+        gif.setUser(userService.findByUserName(principal.getName()));
         if (result.hasErrors()){
 
             redirectAttributes.addFlashAttribute("gif", gif);
             redirectAttributes.addFlashAttribute(
                     "flash",
                     new FlashMessage("Could not upload the gif", FlashMessage.Status.FAILURE));
-            return String.format("/upload");
+            return "redirect:/upload";
         }
         gifService.save(gif, file);
 

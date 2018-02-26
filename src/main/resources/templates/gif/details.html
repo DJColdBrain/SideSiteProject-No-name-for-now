@@ -18,7 +18,7 @@
         <div class="col s10 l11 push-l1">
             <h4 th:text="${gif.description}"></h4>
             <div>
-                <span class="user" th:text="|${gif.timeSinceUploaded} ago by ${gif.username}|"></span>
+                <span class="user" th:text="|${gif.timeSinceUploaded} ago by ${gif.user.username}|"></span>
                 <span class="category"><a th:href="@{|/categories/${gif.category.id}|}" th:text="${gif.category.name}" th:style="|color:${gif.category.colorCode}|"></a></span>
                 <div class="actions">
                     <a th:href="@{|/gifs/${gif.id}/edit|}">Edit</a>
